@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table style="background-color: greenyellow; font-size: 20px;">
+    <tr>
+        <td><a href="/">Главная</a></td>
+        <td><a href="/books">Список книг</a></td>
+        <td>
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Sign Out"/>
+            </form>
+        </td>
+    </tr>
+</table>
+    <H1>Список тегов</H1>
+<table>
+    <th:block th:each="tag: ${tags}">
+        <tr><td><a th:href="'/books/searchbytag?tags=' + ${tag.name} + '&sort=Название'" th:utext="${tag.name}"></a></td></tr>
+    </th:block>
+</table>
+</body>
+</html>

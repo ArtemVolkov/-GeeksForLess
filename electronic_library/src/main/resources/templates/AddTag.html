@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table style="background-color: greenyellow; font-size: 20px;">
+    <tr>
+        <td><a href="/">Главная</a></td>
+        <td><a href="/books">Список книг</a></td>
+        <td>
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Sign Out"/>
+            </form>
+        </td>
+    </tr>
+</table>
+    <H1>Добавление нового тега:</H1>
+    <form action="/admin/addtag" method="post">
+        <input type="text" name="tagname">
+        <button type="submit">Создать</button>
+    </form>
+</body>
+</html>

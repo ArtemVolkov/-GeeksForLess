@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" xmlns:tr="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table style="background-color: greenyellow; font-size: 20px;">
+    <tr>
+        <td><a href="/">Главная</a></td>
+        <td><a href="/books">Список книг</a></td>
+        <td>
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Sign Out"/>
+            </form>
+        </td>
+    </tr>
+</table>
+<h1>Просмотр книги</h1>
+<img th:if="${book.preview}" th:src="'img/'+ ${book.preview}"  th:width="800" th:height="600" style="float: left; margin-right:10px; margin-bottom:10px">
+<img th:unless="${book.preview}" src="resourses/file-not-found.jpg" th:width="800" th:height="600" style="float: left; margin-right:10px; margin-bottom:10px">
+
+    <table>
+        <tr>
+            <td>Превью:</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Название:</td>
+            <td th:utext="${book.name}"></td>
+        </tr>
+        <tr>
+            <td>Автор:</td>
+            <td th:utext="${book.author}"></td>
+        </tr>
+        <tr>
+            <td>Издательство:</td>
+            <td th:utext="${book.publisher}"></td>
+        </tr>
+        <tr>
+            <td>Описание:</td>
+            <td th:utext="${book.description}"></td>
+        </tr>
+        <tr>
+            <td>Скачать:</td>
+            <td><a th:if="${book.file}" th:href="'bookfile/' + ${book.file}">ссылка</a> </td>
+        </tr>
+        <tr>
+            <td>Теги:</td>
+            <td>
+                <th:block th:each="tag: ${book.getTags()}">
+                    <a th:href="'/books/searchbytag?tags=' + ${tag.name} + '&sort=Название'" th:utext="${tag.name}+', '"></a>
+                </th:block>
+            </td>
+        </tr>
+        <tr>
+            <td th:if="${isdislike}" colspan="2" style="text-align: center">
+                <p th:if="${isdislike}" th:utext="'Вы поставили дизлайк этой книге'"></p>
+            </td>
+            <td th:if="${islike}" colspan="2" style="text-align: center">
+                <p th:if="${islike}" th:utext="'Вы поставили лайк этой книге'"></p>
+            </td>
+
+
+        </tr>
+        <tr>
+            <td>
+                <form method="get" action="/book/like">
+                    <input type="hidden" name="username" th:value="${authUser}">
+                    <input type="hidden" name="book_id" th:value="${book.book_id}">
+                    <button type="submit">Мне понравилось! [[${book.likes.size()}]]</button>
+                </form>
+            </td>
+            <td>
+
+                <form method="get" action="/book/dis">
+                    <input type="hidden" name="username" th:value="${authUser}">
+                    <input type="hidden" name="book_id" th:value="${book.book_id}">
+                    <button type="submit">Мне не понравилось! [[${book.dislikes.size()}]]</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+<table >
+    <th style="text-align:left; font-size:24px">Комментарии:</th>
+    <div th:utext="${book.findCommentQueue()}"></div>
+</table>
+
+<div  style="float: left;">
+    <h2>Добавить ваш комментарий:</h2>
+    <form th:action="@{/book}" method="post">
+        <p><input type="text" th:placeholder="'ID'" name="parent">
+            Комментарий на который вы отвечаете(необязательно)
+        </p>
+        <textarea cols="200" rows="10" name="comment"></textarea>
+        <input type="hidden" name="username" th:value="${authUser}">
+        <input type="hidden" name="book_id" th:value="${book.book_id}">
+        <button type="submit">Отправить</button>
+    </form>
+</div>
+
+</body>
+</html>

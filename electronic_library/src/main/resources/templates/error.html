@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table style="background-color: greenyellow; font-size: 20px;">
+    <tr>
+        <td><a href="/">Главная</a></td>
+        <td><a href="/books">Список книг</a></td>
+    </tr>
+</table>
+    <img src="resourses/error.jpg" width="500" height="500">
+    <br>
+    <h1 th:if="${aaa}" th:utext="${aaa}"></h1>
+    <h1 th:if="${error}" th:utext="${error}"></h1>
+    <a th:href="@{/}" th:utext="'Вернуться на главную!'"></a>
+</body>
+</html>

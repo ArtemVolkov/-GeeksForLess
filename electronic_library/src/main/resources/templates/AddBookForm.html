@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table style="background-color: greenyellow; font-size: 20px;">
+    <tr>
+        <td><a href="/">Главная</a></td>
+        <td><a href="/books">Список книг</a></td>
+        <td>
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Sign Out"/>
+            </form>
+        </td>
+    </tr>
+</table>
+
+<H1>Форма добавления новой книги:</H1>
+<h2 if th:if="${errFields}" th:utext="${errFields}" style="color: red"></h2>
+    <form method="post" th:action="@{/admin/addbook}" enctype="multipart/form-data">
+        <table>
+            <tr>
+                <td>Название:</td>
+                <td><input type="text" name="name" placeholder="Название книги"></td>
+            </tr>
+            <tr>
+                <td>Автор:</td>
+                <td><input type="text" name="author" placeholder="Автор книги"></td>
+            </tr>
+            <tr>
+                <td>Издатель:</td>
+                <td><input type="text" name="publisher" placeholder="Издательство книги"></td>
+            </tr>
+            <tr>
+                <td>Описание:</td>
+                <td><textarea type="textarea" name="description" placeholder="Описание книги" rows="25" cols="100"></textarea></td>
+            </tr>
+            <tr>
+                <td>Теги:</td>
+                <td>
+                    <select name="booktags" multiple>
+                        <th:block th:each="tag : ${tags}">
+                            <option th:utext="${tag.name}"></option>
+                        </th:block>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Превью:<br>(max 800x600px)
+                    <p  style="color:red" th:utext="${errorpreview}"></p>
+                </td>
+                <td><input type="file" name="preview" accept="image/*"></td>
+            </tr>
+            <tr>
+                <td>Файл книги:<br>(max 20mb)
+                    <p  style="color:red" th:utext="${errorfile}"></p>
+                </td>
+                <td>  <input type="file" name="bookfile" accept="text/txt , text/rtf , text/doc , text/docx , text/odt , text/pdf"></td>
+            </tr>
+        </table>
+        <button type="submit">Добавить</button>
+
+    </form>
+</body>
+</html>
+

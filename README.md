@@ -12,4 +12,4 @@
 ### Preview
 
 ###### Main page
-![MainPageImg](https://drive.google.com/file/d/1xb9OtkImAXmCyvpcQg0AM8surBIke28r/view)
+![MainPageImg](https://photos.google.com/album/AF1QipMlKnlwFcEJSGF9ceJpZpCKpfjKUlHbGWxVP9cI/photo/AF1QipPe9bE32HsFzZ-7RjLBke16UKOyYak6-eu4UNwZ)
